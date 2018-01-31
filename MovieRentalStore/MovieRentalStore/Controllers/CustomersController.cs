@@ -10,28 +10,30 @@ namespace MovieRentalStore.Controllers
     public class CustomersController : Controller
     {
         // GET: Customers
+        private ApplicationDbContext _context;
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
-            var customers = GetCustomers();
+            var customers = _context.Customers.ToList();
             return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.id == id);
 
             if (customer == null)
                 return HttpNotFound();
             return View(customer);
-        }
-
-        private IEnumerable<Customers> GetCustomers()
-        {
-            return new List<Customers>
-            {
-                new Customers {id = 1, Name = "John Smith"},
-                new Customers {id = 2, Name = "Mary Williams"}
-            };
         }
     }
 }
