@@ -22,6 +22,10 @@ namespace MovieRentalStore.Controllers
             _context.Dispose();
         }
 
+        public ActionResult Insert()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
