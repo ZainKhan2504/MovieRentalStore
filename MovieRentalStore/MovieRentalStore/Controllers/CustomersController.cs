@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MovieRentalStore.Models;
+using MovieRentalStore.ViewModels;
 
 namespace MovieRentalStore.Controllers
 {
@@ -24,7 +25,12 @@ namespace MovieRentalStore.Controllers
 
         public ActionResult Insert()
         {
-            return View();
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View("Insert", viewModel);
         }
         public ActionResult Index()
         {
