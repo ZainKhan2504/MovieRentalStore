@@ -34,9 +34,21 @@ namespace MovieRentalStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Customers customers)
+        public ActionResult Save(Customers customers)
         {
-            _context.Customers.Add(customers);
+            if (customers.id == 0)
+            {
+                _context.Customers.Add(customers);
+            }
+            else
+            {
+                var customerIndb = _context.Customers.Single(c => c.id == customers.id);
+                customerIndb.Name = customers.Name;
+                customerIndb.Birthdate = customers.Birthdate;
+                customerIndb.MembershipTypeid = customers.MembershipTypeid;
+                customerIndb.IsSubscribedToNewsLetter = customers.IsSubscribedToNewsLetter;
+
+            }
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
