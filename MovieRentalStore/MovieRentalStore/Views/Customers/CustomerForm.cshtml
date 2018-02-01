@@ -1,4 +1,4 @@
-﻿@model MovieRentalStore.ViewModels.NewCustomerViewModel
+﻿@model MovieRentalStore.ViewModels.CustomerFormViewModel
 @{
     ViewBag.Title = "Insert";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customers.Birthdate)
-        @Html.TextBoxFor(m => m.Customers.Birthdate, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Customers.Birthdate,"{0:d MMM yyyy}", new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customers.MembershipTypeid)
@@ -24,5 +24,6 @@
             @Html.CheckBoxFor(m => m.Customers.IsSubscribedToNewsLetter) Subscribed To Newsletter
         </label>
     </div>
+    <button type="submit" class="btn btn-primary">Save</button>
 }
 

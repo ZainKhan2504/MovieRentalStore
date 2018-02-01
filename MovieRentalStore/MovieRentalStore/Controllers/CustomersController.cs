@@ -23,14 +23,22 @@ namespace MovieRentalStore.Controllers
             _context.Dispose();
         }
 
-        public ActionResult Insert()
+        public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel()
             {
                 MembershipTypes = membershipTypes
             };
-            return View("Insert", viewModel);
+            return View("CustomerForm",viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Customers customers)
+        {
+            _context.Customers.Add(customers);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
         }
         public ActionResult Index()
         {
@@ -45,6 +53,21 @@ namespace MovieRentalStore.Controllers
             if (customer == null)
                 return HttpNotFound();
             return View(customer);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customers = _context.Customers.SingleOrDefault(c => c.id == id);
+            if (customers == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new CustomerFormViewModel()
+            {
+                Customers = customers,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View("CustomerForm", viewModel);
         }
     }
 }

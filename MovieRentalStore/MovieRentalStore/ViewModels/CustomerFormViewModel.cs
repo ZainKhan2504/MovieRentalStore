@@ -6,7 +6,7 @@ using MovieRentalStore.Models;
 
 namespace MovieRentalStore.ViewModels
 {
-    public class NewCustomerViewModel
+    public class CustomerFormViewModel
     {
         public IEnumerable<MembershipType> MembershipTypes { get; set; }
         public Customers Customers { get; set; }
