@@ -74,7 +74,7 @@ namespace MovieRentalStore.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new CustomerFormViewModel()
+            var viewModel = new CustomerFormViewModel
             {
                 Customers = customers,
                 MembershipTypes = _context.MembershipTypes.ToList()
